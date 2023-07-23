@@ -12,7 +12,7 @@ Widget CustomTextField({label,hint,controller,isDesc = false}){
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(
-          color: Colors.white
+          color: Colors.black
         )
       ),
       focusedBorder: OutlineInputBorder(

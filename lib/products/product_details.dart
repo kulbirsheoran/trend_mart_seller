@@ -13,9 +13,12 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(Colors.blueGrey);
+    // print(Colors.white38);
     return Scaffold(
-      //backgroundColor: Colors.purple,
+    //  backgroundColor: Colors.purple,
       appBar: AppBar(
+
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -51,7 +54,7 @@ class ProductDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   boldText(
-                      text: '${data['p_titel']}',
+                      text: '${data['p_name']}',
                       color: Colors.black87,
                       size: 16.0),
                   // title!.text.size(16).black.make(),
@@ -104,10 +107,12 @@ class ProductDetails extends StatelessWidget {
                                 boldText(text: 'color', color: Colors.black)),
                         Row(
                             children: List.generate(
-                          data['p_colors'].length,
+                        // 3,
+                               data['p_colors'].length,
                           (index) => VxBox()
                               .size(40, 40)
                               .roundedFull
+                                //.color(Colors.red)
                              .color(Color(data['p_colors'][index]))
                               // .color(Vx.randomPrimaryColor)
                               // .withOpacity(1.0))

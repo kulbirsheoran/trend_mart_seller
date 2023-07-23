@@ -18,8 +18,8 @@ class AddProduct extends StatelessWidget {
 
     //comment wala usne kiya tha
 // var controller = Get.find<ProductsController>();
-    return Obx(()=>
-       Scaffold(
+    return Obx(
+      () => Scaffold(
         backgroundColor: Colors.purple,
         appBar: AppBar(
           leading: IconButton(
@@ -34,16 +34,20 @@ class AddProduct extends StatelessWidget {
           ),
           title: boldText(text: 'Add product', color: Colors.black, size: 16.0),
           actions: [
-            controller.isloading.value ? const Center(child: CircularProgressIndicator(valueColor:  AlwaysStoppedAnimation((Colors.cyan)),)):
-            TextButton(
-                onPressed: ()async {
-                   controller.isloading(true);
-                  await controller.uploadImges();
-                  await controller.uploadProduct(context);
-                  Get.back();
-
-                },
-                child: boldText(text: save, color: Colors.black, size: 16.0))
+            controller.isloading.value
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation((Colors.cyan)),
+                  ))
+                : TextButton(
+                    onPressed: () async {
+                      controller.isloading(true);
+                      await controller.uploadImges();
+                      await controller.uploadProduct(context);
+                      Get.back();
+                    },
+                    child:
+                        boldText(text: save, color: Colors.black, size: 16.0))
           ],
         ),
         body: SingleChildScrollView(
@@ -52,7 +56,8 @@ class AddProduct extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                  label: 'Product name', controller: controller.pnameController),
+                  label: 'Product name',
+                  controller: controller.pnameController),
               10.heightBox,
               CustomTextField(
                   label: description,
@@ -68,7 +73,8 @@ class AddProduct extends StatelessWidget {
                   label: description, controller: controller.pdescController),
               10.heightBox,
               CustomTextField(
-                  label: "Quantity", controller: controller.pquantityController),
+                  label: "Quantity",
+                  controller: controller.pquantityController),
               5.heightBox,
               productDropdown("Category", controller.categoryList.value,
                   controller.categoryvalue, controller),
@@ -87,7 +93,10 @@ class AddProduct extends StatelessWidget {
                   children: List.generate(
                       3,
                       (index) => controller.pImageList[index] != null
-                          ? Image.file(controller.pImageList[index],width:100).onTap(() {controller.pickImage(index, context); })
+                          ? Image.file(controller.pImageList[index], width: 100)
+                              .onTap(() {
+                              controller.pickImage(index, context);
+                            })
                           : productImages(label: "${index + 1}").onTap(() {
                               controller.pickImage(index, context);
                             })),
@@ -116,8 +125,7 @@ class AddProduct extends StatelessWidget {
                                   .size(50, 50)
                                   .make()
                                   .onTap(() {
-                                controller.selectedColorIndex.value =
-                                    index.toString()  ;
+                                controller.selectedColorIndex.value = index.toString();
                               }),
                               controller.selectedColorIndex.value == index
                                   ? const Icon(

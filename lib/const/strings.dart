@@ -15,7 +15,7 @@ const dashboard = 'Dashboard';
 const product = 'Products';
 const unpaid = 'Unpaid';
 const rating = 'Rating';
-const total = 'Total Sales';
+const total = 'Sales';
 const popular = 'Popular Products';
 const featured = 'Featured';
 const edit = 'Edit';
@@ -35,7 +35,7 @@ const website = 'Shop Website';
 const description = 'Description';
 const username = 'UserName';
 const chat = 'Chat';
-const confirmorder = 'Confirm Order';
+const confirmOrder = 'Confirm Order';
 //const message = 'Messages';
 
 //const credit = '@klSheoran';

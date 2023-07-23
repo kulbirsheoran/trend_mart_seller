@@ -19,6 +19,7 @@ class StoreServices {
     return fireStore.collection(productsCollection).where('vendor_id',isEqualTo: 'MOvGZTfOm7R1yC2VWNoi').snapshots();
  }
 
+
  }
 
 // class StoreServices {

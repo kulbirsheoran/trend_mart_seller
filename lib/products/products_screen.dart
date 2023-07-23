@@ -24,13 +24,12 @@ class ProductsScreen extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-      //  backgroundColor: Colors.purple,
-        onPressed: () async{
-
+        //  backgroundColor: Colors.purple,
+        onPressed: () async {
           await controller.getCategories();
           controller.populateCategoryList();
 
-          Get.to(()=>const AddProduct());
+          Get.to(() => const AddProduct());
         },
         child: const Icon(Icons.add),
       ),
@@ -44,16 +43,14 @@ class ProductsScreen extends StatelessWidget {
                   color: Colors.grey))
         ],
       ),
-
-      body:  StreamBuilder(
+      body: StreamBuilder(
         stream: StoreServices.getProducts(currentUser!.uid),
-        builder: (BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
-          if(!snapshot.hasData){
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
             return const CircularProgressIndicator();
-          }
-          else{
-            var  data = snapshot.data!.docs;
-            return  Padding(
+          } else {
+            var data = snapshot.data!.docs;
+            return Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -61,10 +58,11 @@ class ProductsScreen extends StatelessWidget {
                     children: List.generate(
                         data.length,
                         (index) => Card(
-                          child: ListTile(
+                              child: ListTile(
                                 onTap: () {
-                                  Get.to(()=>ProductDetails(data: data[index],));
-
+                                  Get.to(() => ProductDetails(
+                                        data: data[index],
+                                      ));
                                 },
                                 leading: Image.network(
                                   '${data[index]['p_imgs'][0]}',
@@ -73,56 +71,105 @@ class ProductsScreen extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ),
                                 title: boldText(
-                                    text: '${data[index]['p_name']}', color: Colors.black),
+                                    text: '${data[index]['p_name']}',
+                                    color: Colors.black),
                                 subtitle: Row(
                                   children: [
-                                    boldText(text:'\$${data[index]['p_price']}',color: Colors.grey),
+                                    boldText(
+                                        text: '\$${data[index]['p_price']}',
+                                        color: Colors.grey),
                                     10.widthBox,
-                                    boldText(text: '${data[index]['is_featured']}'== true? 'Featured':'',color: Colors.purple)
+                                    boldText(
+                                        text: '${data[index]['is_featured']}' ==
+                                                true
+                                            ? 'Featured'
+                                            : '',
+                                        color: Colors.purple)
                                   ],
                                 ),
                                 trailing: VxPopupMenu(
-                                  arrowSize: 0.0,
+                                    arrowSize: 0.0,
                                     menuBuilder: () => Column(
-                                          children:
-                                            List.generate(popupMenuTitles.length, (i) => SizedBox(
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
-                                                child: Row(
-                                                  children: [
-                                                  Icon(
-                                                 popupMenuIcons[i] ,
+                                            children: List.generate(
+                                                popupMenuTitles.length,
+                                                (i) => SizedBox(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(12.0),
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(
+                                                              popupMenuIcons[i],
+                                                              color: data[index]
+                                                                          [
+                                                                          'featured_id'] ==
+                                                                      'MOvGZTfOm7R1yC2VWNoi && i==0 '
+                                                                  ? Colors.green
+                                                                  : Colors.grey,
+                                                            ),
+                                                            10.widthBox,
+                                                            boldText(
+                                                                text: data[index]['featured_id'] ==
+                                                                            'MOvGZTfOm7R1yC2VWNoi' &&
+                                                                        i == 0
+                                                                    ? 'Remove featured'
+                                                                    : popupMenuTitles[
+                                                                        i],
+                                                                color: Colors
+                                                                    .black)
+                                                          ],
+                                                        ).onTap(() {
+                                                          switch (i) {
+                                                            case 0:
+                                                              if (data[index][
+                                                                      'is_featured'] ==
+                                                                  true) {
+                                                                controller
+                                                                    .removeFeatured(
+                                                                        data[index]
+                                                                            .id);
+                                                                VxToast.show(
+                                                                    context,
+                                                                    msg:
+                                                                        'Remove');
+                                                              } else {
+                                                                controller
+                                                                    .addFeatured(
+                                                                        data[index]
+                                                                            .id);
+                                                                VxToast.show(
+                                                                    context,
+                                                                    msg:
+                                                                        'Added');
+                                                              }
 
-                                                    color:data[index]['featured_id']== 'MOvGZTfOm7R1yC2VWNoi && i==0 ' ? Colors.green:Colors.grey,
-                                                ),
-                                                    10.widthBox,
-                                                    boldText(text:data[index]['featured_id'] == 'MOvGZTfOm7R1yC2VWNoi' && i==0 ?'Remove featured' :popupMenuTitles[i],color:Colors.black)
-                                                  ],
-                                                ).onTap(() {
-                                                  if(data[index]['is_featured']==true){
-                                                    controller.removeFeatured(data[index].id);
-                                                    VxToast.show(context, msg: 'Remove');
-                                                  }else{
-                                                    controller.addFeatured(data[index].id);
-                                                    VxToast.show(context, msg: 'Added');
-                                                  }
-
-                                                }),
-                                              ),
-                                            ))
-
-                                        ).box.white.rounded.width(200).make(),
+                                                              break;
+                                                            case 1:
+                                                              break;
+                                                            case 2:
+                                                              controller.removeProduct(data[index].id);
+                                                              VxToast.show(context, msg: "Product removed");
+                                                              break;
+                                                            default:
+                                                          }
+                                                        }),
+                                                      ),
+                                                    )))
+                                        .box
+                                        .white
+                                        .rounded
+                                        .width(200)
+                                        .make(),
                                     clickType: VxClickType.singleClick,
-                                  child: const Icon(Icons.more_vert_rounded)),
+                                    child: const Icon(Icons.more_vert_rounded)),
                               ),
-                        ))),
+                            ))),
               ),
             );
           }
         },
       ),
-
-
     );
   }
 }

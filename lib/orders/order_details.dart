@@ -52,7 +52,7 @@ class _OrderDetailsState extends State<OrderDetails> {
           child: Visibility(
             visible: !controller.confirmed.value,
             child: ourButton(
-                title: confirmorder,
+                title: confirmOrder,
                 color: Colors.purple,
                 onPress: () {
                   controller.confirmed(true);

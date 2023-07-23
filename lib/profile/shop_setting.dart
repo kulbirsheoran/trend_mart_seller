@@ -15,9 +15,9 @@ class ShopSettings extends StatelessWidget {
     var controller = Get.find<ProfileController>();
     return Obx(()=>
      Scaffold(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.blueGrey,
         appBar: AppBar(
-          // backgroundColor: Colors.purple,
+           backgroundColor: Colors.red,
           automaticallyImplyLeading: false,
           title: boldText(text: shopsetting, color: Colors.white),
           actions: [

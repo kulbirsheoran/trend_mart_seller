@@ -30,7 +30,7 @@ Widget productDropdown(
             controller.populateSubCategory(newValue.toString());
           }
           dropvalue.value = newValue.toString();
-
+                                              
         },
       )).box.white.rounded.make(),
     ),

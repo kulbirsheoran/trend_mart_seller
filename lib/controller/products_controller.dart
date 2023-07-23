@@ -143,7 +143,7 @@ uploadProduct(context)async{
       'is_featured' :true,
       'p_category':categoryvalue.value,
       'p_subcategory':subcategoryvalue.value,
-      'p_colors':FieldValue.arrayUnion([Colors.purple,Colors.red]),
+    //  'p_colors':FieldValue.arrayUnion([Colors.purple,Colors.red]),
       'p_imgs':FieldValue.arrayUnion(pImagesLinks),
       'p_whishlist':FieldValue.arrayUnion([]),
       'p_description':pdescController.text,
@@ -173,5 +173,8 @@ uploadProduct(context)async{
       'is_featured':false,
     },SetOptions(merge:true)
     );
+  }
+  removeProduct(docId)async{
+    await fireStore.collection(productsCollection).doc(docId).delete();
   }
 }
